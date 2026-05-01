@@ -328,12 +328,18 @@ section[id] {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: #0E0E0E;
+  /* imagen de fondo: ruta relativa desde css/style.css */
+  background-image:
+    linear-gradient(to bottom, rgba(14,14,14,0.82) 0%, rgba(14,14,14,0.72) 60%, rgba(14,14,14,0.92) 100%),
+    url('../assets/imagenes/back.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   padding: 8rem 0 5rem;
   overflow: hidden;
 }
 
-/* subtle grid texture */
+/* subtle grid texture encima de la imagen */
 .grid-texture {
   position: absolute;
   inset: 0;
