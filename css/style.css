@@ -5,11 +5,14 @@
    ============================================================ */
 
 /* === RESET & BASE === */
+
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
 
 html {
   scroll-behavior: smooth;
@@ -33,6 +36,13 @@ section[id] {
 }
 
 /* === LAYOUT === */
+
+.logo-img {
+  height: 60px;
+  width: auto;
+  display: block;
+}
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -59,16 +69,16 @@ section[id] {
 
 .section-subtitle {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.45);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.72);
   margin-bottom: 3rem;
   letter-spacing: 0.04em;
 }
 
 .section-subtitle-dark {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1.05rem;
-  color: rgba(14, 14, 14, 0.45);
+  font-size: 1.1rem;
+  color: rgba(14, 14, 14, 0.68);
   margin-bottom: 3rem;
   letter-spacing: 0.04em;
 }
@@ -352,8 +362,8 @@ section[id] {
 .hero-subtitle {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 400;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: rgba(255, 255, 255, 0.45);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.72);
   margin-bottom: 2.5rem;
   letter-spacing: 0.06em;
 }
@@ -442,8 +452,8 @@ section[id] {
 
 .about-text {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1.05rem;
-  color: rgba(14, 14, 14, 0.7);
+  font-size: 1.1rem;
+  color: rgba(14, 14, 14, 0.82);
   line-height: 1.75;
   margin-bottom: 1.25rem;
 }
@@ -510,8 +520,8 @@ section[id] {
 
 .service-desc {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
   line-height: 1.65;
 }
 
@@ -580,16 +590,16 @@ section[id] {
 
 .project-desc {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
   line-height: 1.65;
   margin-bottom: 0.75rem;
 }
 
 .project-type {
   font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 1.1rem;
   letter-spacing: 0.04em;
 }
@@ -663,8 +673,8 @@ section[id] {
 
 .timeline-date {
   font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.28);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.55);
   letter-spacing: 0.06em;
   margin-bottom: 0.5rem;
 }
@@ -681,15 +691,15 @@ section[id] {
 
 .timeline-company {
   font-family: 'Space Mono', monospace;
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.65);
   margin-bottom: 0.75rem;
 }
 
 .timeline-desc {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.38);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.72);
   line-height: 1.65;
 }
 
@@ -720,8 +730,8 @@ section[id] {
 .tech-cat-title {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 600;
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   margin-bottom: 1.1rem;
@@ -789,8 +799,8 @@ section[id] {
 
 .diff-desc {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1rem;
-  color: rgba(14, 14, 14, 0.55);
+  font-size: 1.05rem;
+  color: rgba(14, 14, 14, 0.75);
   line-height: 1.7;
   max-width: 420px;
 }
@@ -831,8 +841,8 @@ section[id] {
 
 .help-desc {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.92rem;
-  color: rgba(255, 255, 255, 0.38);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.72);
   line-height: 1.65;
 }
 
@@ -873,8 +883,8 @@ section[id] {
 
 .testimonial-text {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1.05rem;
-  color: rgba(14, 14, 14, 0.65);
+  font-size: 1.1rem;
+  color: rgba(14, 14, 14, 0.82);
   line-height: 1.75;
   margin-bottom: 1.75rem;
   position: relative;
@@ -913,8 +923,8 @@ section[id] {
 
 .contact-intro {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.75);
   line-height: 1.7;
   margin-bottom: 2rem;
 }
@@ -932,12 +942,12 @@ section[id] {
   gap: 0.5rem;
   font-family: 'Rajdhani', sans-serif;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.55);
-  border: 1px solid #1E1E1E;
+  color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 0.65rem 1.25rem;
   transition: color 0.25s, border-color 0.25s;
 }
@@ -959,15 +969,15 @@ section[id] {
 
 .contact-location {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.62);
   margin-bottom: 0.4rem;
 }
 
 .contact-phone {
   font-family: 'Space Mono', monospace;
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.75);
   letter-spacing: 0.08em;
 }
 
@@ -987,10 +997,10 @@ section[id] {
 .form-label {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 600;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .form-input {
@@ -1011,7 +1021,7 @@ section[id] {
   border-color: rgba(255, 255, 255, 0.28);
 }
 .form-input::placeholder {
-  color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.35);
 }
 
 .form-select {
