@@ -213,3 +213,211 @@ function showToast(msg) {
     setTimeout(() => toast.remove(), 300);
   }, 3500);
 }
+
+
+/* ============================================================
+   MAPAS INTERACTIVOS — D3.js + TopoJSON
+   GeoJSON fuente: world-atlas@2 (mundial) + deldersveld (México estados)
+   ============================================================ */
+(function () {
+  if (typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+
+  /* --- Tooltip compartido --- */
+  const tip = document.createElement('div');
+  tip.id = 'map-tooltip';
+  document.body.appendChild(tip);
+
+  function showTip(event, text) {
+    tip.textContent = text;
+    tip.classList.add('visible');
+    moveTip(event);
+  }
+  function moveTip(event) {
+    tip.style.left = (event.clientX + 14) + 'px';
+    tip.style.top  = (event.clientY - 42) + 'px';
+  }
+  function hideTip() { tip.classList.remove('visible'); }
+
+  /* --- Utilidades --- */
+  function debounce(fn, ms) {
+    let t;
+    return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+  }
+
+  function showSkeleton(el) {
+    el.innerHTML = '<div class="map-skeleton" aria-hidden="true"></div>';
+  }
+
+  function showError(el) {
+    el.innerHTML = '<p class="map-error">Mapa no disponible</p>';
+  }
+
+  /* --- Render genérico de mapa --- */
+  function drawMap(container, features, projFn, points) {
+    container.innerHTML = '';
+
+    const W = container.clientWidth  || 400;
+    const H = container.clientHeight || 300;
+
+    const svg = d3.select(container)
+      .append('svg')
+      .attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('width',  '100%')
+      .attr('height', H)
+      .attr('aria-hidden', 'true');
+
+    const projection = projFn(W, H);
+    const geoPath    = d3.geoPath().projection(projection);
+
+    /* polígonos de países / estados */
+    svg.append('g')
+      .selectAll('path')
+      .data(features.features || [])
+      .join('path')
+        .attr('d', geoPath)
+        .attr('fill', '#1A1A1A')
+        .attr('stroke', '#2E2E2E')
+        .attr('stroke-width', 0.5)
+        .on('mouseenter', function () { d3.select(this).attr('fill', '#252525'); })
+        .on('mouseleave', function () { d3.select(this).attr('fill', '#1A1A1A'); });
+
+    /* puntos de ubicación */
+    points.forEach(pt => {
+      const proj = projection(pt.coords);
+      if (!proj) return;
+      const [px, py] = proj;
+      /* descartar puntos fuera del viewport */
+      if (px < -10 || py < -10 || px > W + 10 || py > H + 10) return;
+
+      const g = svg.append('g')
+        .attr('transform', `translate(${px},${py})`);
+
+      /* anillo extra para sede */
+      if (pt.isSede) {
+        g.append('circle')
+          .attr('r', 14)
+          .attr('fill', 'none')
+          .attr('stroke', 'rgba(255,255,255,0.22)')
+          .attr('stroke-width', 0.75)
+          .attr('class', 'map-pulse-outer');
+      }
+
+      /* anillo exterior pulsante */
+      g.append('circle')
+        .attr('r', 8)
+        .attr('fill', 'rgba(255,255,255,0.08)')
+        .attr('stroke', '#FFFFFF')
+        .attr('stroke-width', 0.75)
+        .attr('class', 'map-pulse');
+
+      /* punto sólido interior */
+      g.append('circle')
+        .attr('r', 3)
+        .attr('fill', '#FFFFFF');
+
+      /* área de hit transparente para tooltip */
+      g.append('circle')
+        .attr('r', 18)
+        .attr('fill', 'transparent')
+        .attr('cursor', 'pointer')
+        .on('mouseenter', (evt) => showTip(evt, pt.label))
+        .on('mousemove',  (evt) => moveTip(evt))
+        .on('mouseleave', hideTip);
+    });
+  }
+
+  /* -------------------------------------------------------
+     MAPA 1 — MÉXICO / YUCATÁN
+     Fuente: world-atlas@2 (jsdelivr) — misma que Latam,
+     proyección recortada a la Península de Yucatán.
+  ------------------------------------------------------- */
+  async function initMexicoMap() {
+    const el = document.getElementById('map-mexico');
+    if (!el) return;
+    showSkeleton(el);
+
+    const points = [
+      { coords: [-86.8515, 21.1619], label: 'Cancún, Q.Roo / Sede Principal', isSede: true },
+      { coords: [-89.6230, 20.9674], label: 'Mérida, Yucatán / Presencial y remoto' },
+      { coords: [-90.5349, 19.8301], label: 'Campeche / Presencial y remoto' }
+    ];
+
+    /* bounding box que muestra México casi completo:
+       se reconoce la silueta del país y la Península de Yucatán
+       queda visible al sureste con los tres puntos */
+    const bounds = {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[
+          [-118, 33], [-85, 33],
+          [-85,  14], [-118, 14],
+          [-118, 33]
+        ]]
+      }
+    };
+
+    try {
+      const res  = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+      if (!res.ok) throw new Error('fetch');
+      const data = await res.json();
+      const geo  = topojson.feature(data, data.objects.countries);
+
+      /* proyección ajustada al bounding box de Yucatán */
+      const projFn = (W, H) => d3.geoMercator().fitSize([W, H], bounds);
+
+      const draw = () => drawMap(el, geo, projFn, points);
+      draw();
+      new ResizeObserver(debounce(draw, 100)).observe(el);
+
+    } catch (_) {
+      showError(el);
+    }
+  }
+
+  /* -------------------------------------------------------
+     MAPA 2 — LATINOAMÉRICA (mundial recortado)
+  ------------------------------------------------------- */
+  async function initLatamMap() {
+    const el = document.getElementById('map-latam');
+    if (!el) return;
+    showSkeleton(el);
+
+    const points = [
+      { coords: [-77.0428, -12.0464], label: 'Perú / Servicios remotos' },
+      { coords: [-70.6693, -33.4489], label: 'Chile / Servicios remotos' }
+    ];
+
+    /* bounding box: desde México hasta el sur de Chile */
+    const bounds = {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[
+          [-87, 23], [-33, 23], [-33, -56], [-87, -56], [-87, 23]
+        ]]
+      }
+    };
+
+    try {
+      const res  = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+      if (!res.ok) throw new Error('fetch');
+      const data = await res.json();
+      const geo  = topojson.feature(data, data.objects.countries);
+
+      /* proyección ajustada al bounding box de América Latina */
+      const projFn = (W, H) => d3.geoMercator().fitSize([W, H], bounds);
+
+      const draw = () => drawMap(el, geo, projFn, points);
+      draw();
+      new ResizeObserver(debounce(draw, 100)).observe(el);
+
+    } catch (_) {
+      showError(el);
+    }
+  }
+
+  /* inicializar ambos */
+  initMexicoMap();
+  initLatamMap();
+})();

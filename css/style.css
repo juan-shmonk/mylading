@@ -476,6 +476,203 @@ section[id] {
 }
 
 /* ============================================================
+   COBERTURA
+   ============================================================ */
+.coverage {
+  background: #0E0E0E;
+  padding: 6rem 0;
+}
+
+.coverage-subtitle {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+
+.coverage-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.coverage-card {
+  background: #141414;
+  border: 1px solid #1E1E1E;
+  padding: 2.25rem 2rem;
+  transition: border-color 0.3s ease;
+}
+.coverage-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.coverage-card-header {
+  margin-bottom: 1.5rem;
+}
+
+.coverage-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid;
+}
+
+.badge-sede {
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.badge-remote {
+  color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.coverage-region {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2rem;
+  color: #FFFFFF;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.25rem;
+}
+
+.coverage-map {
+  width: 100%;
+  background: #0E0E0E;
+}
+
+/* contenedor D3 */
+.map-container {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+  background: #0E0E0E;
+}
+
+.map-container svg {
+  display: block;
+}
+
+/* skeleton loader mientras carga el GeoJSON */
+.map-skeleton {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #141414 25%, #1E1E1E 50%, #141414 75%);
+  background-size: 300% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* mensaje de error */
+.map-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.06em;
+}
+
+/* pulso continuo en los puntos de ubicación */
+@keyframes map-pulse-anim {
+  0%   { transform: scale(1);   opacity: 0.75; }
+  100% { transform: scale(2);   opacity: 0;    }
+}
+
+.map-pulse {
+  animation: map-pulse-anim 2s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.map-pulse-outer {
+  animation: map-pulse-anim 2s ease-out infinite 0.7s;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* tooltip flotante */
+#map-tooltip {
+  position: fixed;
+  z-index: 9999;
+  background: #0E0E0E;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: #FFFFFF;
+  padding: 0.45rem 0.85rem;
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+#map-tooltip.visible {
+  opacity: 1;
+}
+
+.coverage-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.coverage-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.coverage-pin {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.coverage-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.38);
+  border: 1px solid #1E1E1E;
+  padding: 0.1rem 0.45rem;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+
+.coverage-note {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.6;
+  border-top: 1px solid #1E1E1E;
+  padding-top: 1.25rem;
+  letter-spacing: 0.03em;
+}
+
+@media (min-width: 768px) {
+  .coverage-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================================
    SERVICIOS
    ============================================================ */
 .services {
@@ -1155,7 +1352,7 @@ section[id] {
     background: transparent;
     border: none;
     padding: 0;
-    gap: 1.75rem;
+    gap: 1.25rem;
   }
   .nav-cta { display: inline-block; }
 

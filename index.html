@@ -9,6 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Rajdhani:wght@400;600&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <!-- D3.js v7 + TopoJSON para mapas interactivos -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 </head>
 <body>
 
@@ -26,12 +29,14 @@
       </button>
 
       <ul class="nav-menu" id="navMenu" role="list">
-        <li><a href="#inicio"      class="nav-link">Inicio</a></li>
-        <li><a href="#servicios"   class="nav-link">Servicios</a></li>
-        <li><a href="#proyectos"   class="nav-link">Proyectos</a></li>
-        <li><a href="#experiencia" class="nav-link">Experiencia</a></li>
-        <li><a href="#tecnologias" class="nav-link">Tecnologías</a></li>
-        <li><a href="#contacto"    class="nav-link">Contacto</a></li>
+        <li><a href="#inicio"         class="nav-link">Inicio</a></li>
+        <li><a href="#sobre-nosotros" class="nav-link">Sobre nosotros</a></li>
+        <li><a href="#cobertura"      class="nav-link">Cobertura</a></li>
+        <li><a href="#servicios"      class="nav-link">Servicios</a></li>
+        <li><a href="#proyectos"      class="nav-link">Proyectos</a></li>
+        <li><a href="#testimonios"    class="nav-link">Testimonios</a></li>
+        <li><a href="#tecnologias"    class="nav-link">Tecnologías</a></li>
+        <li><a href="#contacto"       class="nav-link">Contacto</a></li>
       </ul>
 
       <!-- WHATSAPP_URL = https://wa.me/TU_NUMERO -->
@@ -75,9 +80,9 @@ PARA NEGOCIOS
   </section>
 
   <!-- =====================
-       SOBRE MÍ
+       ACERCA DE NOSOTROS
   ===================== -->
-  <section class="about" id="sobre-mi" aria-label="Sobre mí">
+  <section class="about" id="sobre-nosotros" aria-label="Acerca de nosotros">
     <div class="about-split">
       <div class="about-dark">
         <div class="about-dark-content">
@@ -92,17 +97,50 @@ PARA NEGOCIOS
       </div>
       <div class="about-light">
         <div class="about-light-content">
-          <h2 class="section-title-dark fade-up">Sobre mí</h2>
+          <h2 class="section-title-dark fade-up">Acerca de nosotros</h2>
           <p class="about-text fade-up">
-            Soy un técnico y desarrollador con experiencia en soporte técnico, instalación de sistemas y desarrollo de soluciones web y software. Con base en Cancún, Q.Roo, trabajo con negocios, emprendedores y profesionales que necesitan tecnología práctica y funcional.
+            En Multifuncional León desarrollamos soluciones tecnológicas prácticas y funcionales para negocios, emprendedores y profesionales. Nacimos en Cancún, Quintana Roo, con el objetivo de hacer la tecnología accesible, útil y orientada a resultados reales.
           </p>
           <p class="about-text fade-up">
-            Mi enfoque combina conocimiento técnico real —desde redes y hardware hasta programación y automatización— con una visión orientada a resultados. No me limito a escribir código: entiendo el problema, propongo la solución y la ejecuto.
+            Combinamos experiencia técnica en campo —redes, soporte, hardware e infraestructura— con desarrollo web, automatización con IA y sistemas administrativos a medida. No nos limitamos a escribir código: entendemos el problema, proponemos la solución y la ejecutamos.
           </p>
           <blockquote class="about-quote fade-up">
-            "No solo desarrollo interfaces: entiendo problemas técnicos reales y los convierto en soluciones digitales funcionales."
+            "No vendemos tecnología. Construimos resultados."
           </blockquote>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       COBERTURA
+  ===================== -->
+  <section class="coverage" id="cobertura" aria-label="Cobertura geográfica">
+    <div class="container">
+      <h2 class="section-title fade-up">Dónde operamos</h2>
+      <p class="coverage-subtitle fade-up">Servicios presenciales y remotos</p>
+      <div class="coverage-grid">
+
+        <div class="coverage-card fade-up">
+          <div class="coverage-card-header">
+            <span class="coverage-badge badge-sede">Sede principal</span>
+          </div>
+          <h3 class="coverage-region">México</h3>
+          <div class="coverage-map">
+            <div id="map-mexico" class="map-container" aria-label="Mapa interactivo de cobertura en México"></div>
+          </div>
+        </div>
+
+        <div class="coverage-card fade-up">
+          <div class="coverage-card-header">
+            <span class="coverage-badge badge-remote">Servicios remotos</span>
+          </div>
+          <h3 class="coverage-region">Latinoamérica</h3>
+          <div class="coverage-map">
+            <div id="map-latam" class="map-container" aria-label="Mapa interactivo de cobertura en Latinoamérica"></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -224,56 +262,6 @@ PARA NEGOCIOS
           </div>
           <button class="btn-outline-sm" aria-label="Ver detalles de AutoDocumentsFast">Ver detalles</button>
         </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================
-       EXPERIENCIA
-  ===================== -->
-  <section class="experience" id="experiencia" aria-label="Experiencia laboral">
-    <div class="container">
-      <h2 class="section-title fade-up">Experiencia</h2>
-      <p class="section-subtitle fade-up">Trayectoria técnica en campo</p>
-
-      <div class="timeline" role="list">
-
-        <div class="timeline-item fade-up" role="listitem">
-          <div class="timeline-card">
-            <p class="timeline-date">Oct — Dic 2021</p>
-            <h3 class="timeline-title">Auxiliar Soporte Técnico</h3>
-            <p class="timeline-company">Internet Móvil</p>
-            <p class="timeline-desc">Soporte técnico a usuarios, diagnóstico de fallas de conectividad, configuración de dispositivos de red y atención en campo a clientes de la zona.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item fade-up" role="listitem">
-          <div class="timeline-card">
-            <p class="timeline-date">Jun — Jul 2021</p>
-            <h3 class="timeline-title">Técnico Instalador de Terminales Bancarias</h3>
-            <p class="timeline-company">Ingenico</p>
-            <p class="timeline-desc">Instalación, configuración y puesta en marcha de terminales punto de venta (POS) en comercios de la región. Soporte técnico presencial y capacitación a usuarios.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item fade-up" role="listitem">
-          <div class="timeline-card">
-            <p class="timeline-date">Ene — Feb 2021</p>
-            <h3 class="timeline-title">Técnico Instalador en Campo</h3>
-            <p class="timeline-company">ATM</p>
-            <p class="timeline-desc">Instalación y mantenimiento de cajeros automáticos y equipos de pago. Configuración de hardware, verificación de conectividad y pruebas de funcionamiento.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item fade-up" role="listitem">
-          <div class="timeline-card">
-            <p class="timeline-date">Sept 2019 — Ene 2020</p>
-            <h3 class="timeline-title">Prácticas en Soporte Informático</h3>
-            <p class="timeline-company">INM — Instituto Nacional de Migración</p>
-            <p class="timeline-desc">Mantenimiento preventivo y correctivo de equipos de cómputo, soporte a usuarios internos, gestión de periféricos y asistencia en infraestructura de red institucional.</p>
-          </div>
-        </div>
 
       </div>
     </div>
