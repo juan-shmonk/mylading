@@ -399,8 +399,8 @@ section[id] {
   position: absolute;
   top: 0;
   right: 2.5rem;
-  transform: translateY(-28%);   /* 28 % de la imagen asoma por encima del borde */
-  height: 520px;
+  transform: translateY(-4%);   /* 28 % de la imagen asoma por encima del borde */
+  height: 600px;
   width: auto;
   z-index: 10;
   pointer-events: none;
