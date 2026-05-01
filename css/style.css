@@ -394,16 +394,31 @@ section[id] {
   background: #F4F2EE;
 }
 
+/* efecto "sale del borde superior" — activo solo en desktop */
 .img-def {
-  height: 590px;
-  width: auto;
-  display: block;
   position: absolute;
-  bottom: 0;           /* pegado al borde inferior de la sección oscura */
-  right: 60px;
-  transform: translateY(113%); /* sube la mitad de la imagen sobre el borde */
+  top: 0;
+  right: 2.5rem;
+  transform: translateY(-28%);   /* 28 % de la imagen asoma por encima del borde */
+  height: 520px;
+  width: auto;
   z-index: 10;
-  filter: drop-shadow(0px -4px 10px rgba(0,0,0,0.5));
+  pointer-events: none;
+  filter: drop-shadow(0 -8px 20px rgba(0, 0, 0, 0.22));
+}
+
+/* móvil: imagen estática dentro del flujo, sin efecto desbordante */
+@media (max-width: 767px) {
+  .img-def {
+    position: static;
+    transform: none;
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    object-fit: contain;
+    margin-top: 2rem;
+    filter: none;
+  }
 }
 .about-split {
   display: grid;
@@ -461,6 +476,8 @@ section[id] {
   padding: 4rem 2rem;
   display: flex;
   align-items: center;
+  position: relative;   /* ancla el absolute de .img-def */
+  overflow: visible;    /* permite que la imagen asome por encima del borde */
 }
 
 .about-light-content {
